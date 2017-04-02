@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">SaveTime</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="registration_ok_button_text">@string/button_ok</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Здесь будут какие-то заказы в виде списка</string>
+    <string name="title_activity_scrolling">Выбор блюда</string>
+    <string name="large_text">
+        Здесь будет возможность выбрать какие-то блюда \n\n
+
+        и так как их будет много \n\n
+
+        мы постараемся разнести строки \n\n
+
+        Чтобы понимать, как все будет выглядеть \n\n
+
+        Вот так, примерно\n\n\n\n
+
+        Здесь будет возможность выбрать какие-то блюда \n\n
+
+        и так как их будет много \n\n
+
+        мы постараемся разнести строки \n\n
+
+        Чтобы понимать, как все будет выглядеть \n\n
+
+        Вот так, примерно\n\n\n\n
+    </string>
+    <string name="order_activity_label">Orders</string>
+    <string name="search">Search</string>
+    <string name="orders_tab_new">New</string>
+    <string name="orders_tab_done">Done</string>
+    <string name="orders_tab_not_payed">Not payed</string>
+    <string name="price_format">%f r.</string>
+</resources>

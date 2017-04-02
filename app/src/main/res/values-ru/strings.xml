@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Отмена</string>
+    <string name="registration_ok_button_text">@string/button_ok</string>
+    <string name="order_activity_label">Заказы</string>
+    <string name="search">Поиск</string>
+    <string name="orders_tab_new">Новые</string>
+    <string name="orders_tab_done">Выданные</string>
+    <string name="orders_tab_not_payed">Неоплаченные</string>
+    <string name="price_format">%f р.</string>
+</resources>
