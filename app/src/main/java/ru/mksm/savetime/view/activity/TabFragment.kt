@@ -16,6 +16,7 @@ import org.w3c.dom.Text
 import ru.mksm.savetime.R
 import ru.mksm.savetime.interactors.OrdersInteractor
 import ru.mksm.savetime.model.Order
+import ru.mksm.savetime.model.OrderType
 import ru.mksm.savetime.util.Application
 import ru.mksm.savetime.util.Locator
 import java.util.*
@@ -34,7 +35,7 @@ class PlaceholderFragment : Fragment() {
         val orderTypes = MainActivity.TabType.values()[arguments.getInt(TAB_ORDER_TYPE)].orderTypes
         Locator.mOrdersInteractor.observeOrders(
                 *orderTypes).subscribe {
-            recyclerView.adapter = Adapter(context, it)
+            recyclerView.adapter = Adapter(context, it.sortedBy { it.type }.sortedBy { it.time })
         }
         return rootView
     }
@@ -65,7 +66,7 @@ class Adapter(val context : Context, val orders : List<Order>) : RecyclerView.Ad
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) : ViewHolder {
         val inflater = LayoutInflater.from(context)
-        return ViewHolder(inflater.inflate(R.layout.order_recycler_view, parent))
+        return ViewHolder(inflater.inflate(R.layout.order_recycler_view, parent, false))
     }
 
 
@@ -75,16 +76,28 @@ class Adapter(val context : Context, val orders : List<Order>) : RecyclerView.Ad
         val view = holder!!.itemView
         val header = view.findViewById(R.id.header) as RelativeLayout
         val idText = view.findViewById(R.id.order_id) as TextView
-        val timeText = view.findViewById(R.id.order_id) as TextView
-        val priceText = view.findViewById(R.id.order_id) as TextView
+        val timeText = view.findViewById(R.id.order_time) as TextView
+        val priceText = view.findViewById(R.id.order_price) as TextView
         val descText = view.findViewById(R.id.order_description) as TextView
         val order = orders[position]
         idText.text = order.getId()
         timeText.text = view.context.getString(R.string.time_format,order.time.get(Calendar.HOUR),
                 order.time.get(Calendar.MINUTE))
         priceText.text = view.context.getString(R.string.price_format, order.price)
-        descText.text = order.desc.toString()
+        descText.text = order.desc.map { pairToKey(it) }.joinToString(separator = ", ")
+        header.setBackgroundResource(order.type.headerResId)
+        idText.setTextColor(context.resources.getColor(order.type.idColorResId))
+        timeText.setTextColor(context.resources.getColor(order.type.otherColorResid))
+        priceText.setTextColor(context.resources.getColor(order.type.otherColorResid))
 
+    }
+
+    private fun pairToKey(pair : Map.Entry<String, Int>) : String {
+        if (pair.value == 1) {
+            return pair.key
+        } else {
+            return pair.key + " x" + pair.value
+        }
     }
 
 }

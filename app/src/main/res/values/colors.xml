@@ -3,4 +3,9 @@
     <color name="colorPrimary">#464b50</color>
     <color name="colorPrimaryDark">#3f454c</color>
     <color name="colorAccent">#2494f3</color>
+    <color name="lightBlue">@color/colorAccent</color>
+    <color name="green">#71bc6d</color>
+    <color name="white">@android:color/white</color>
+    <color name="order_black_text">#212121</color>
+    <color name="order_gray_text">#9b9b9b</color>
 </resources>
