@@ -6,4 +6,13 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="little_text_size">14sp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
+    <dimen name="image_margin">24dp</dimen>
+    <dimen name="image_size">20dp</dimen>
+    <dimen name="small_text_top_margin">24dp</dimen>
+    <dimen name="small_text_right_margin">32dp</dimen>
+    <dimen name="small_text_bot_margin">12dp</dimen>
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
 </resources>

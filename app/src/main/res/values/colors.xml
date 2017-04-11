@@ -8,4 +8,8 @@
     <color name="white">@android:color/white</color>
     <color name="order_black_text">#212121</color>
     <color name="order_gray_text">#9b9b9b</color>
+    <color name="lines_color">#e0e0e0</color>
+    <color name="icon_gray_color">#bdbdbd</color>
+    <color name="navigation_gray_block">#eeeeee</color>
+    <color name="navigation_red_block">#d85242</color>
 </resources>

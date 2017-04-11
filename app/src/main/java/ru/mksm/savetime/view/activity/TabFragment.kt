@@ -4,11 +4,13 @@ package ru.mksm.savetime.view.activity
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -33,9 +35,9 @@ class PlaceholderFragment : Fragment() {
         val recyclerView = rootView.findViewById(R.id.orders_recycler_view) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context);
         val orderTypes = MainActivity.TabType.values()[arguments.getInt(TAB_ORDER_TYPE)].orderTypes
-        Locator.mOrdersInteractor.observeOrders(
+        Locator.ordersInteractor.observeOrders(
                 *orderTypes).subscribe {
-            recyclerView.adapter = Adapter(context, it.sortedBy { it.type }.sortedBy { it.time })
+            recyclerView.adapter = Adapter(context, it.sorted())
         }
         return rootView
     }
@@ -89,6 +91,11 @@ class Adapter(val context : Context, val orders : List<Order>) : RecyclerView.Ad
         idText.setTextColor(context.resources.getColor(order.type.idColorResId))
         timeText.setTextColor(context.resources.getColor(order.type.otherColorResid))
         priceText.setTextColor(context.resources.getColor(order.type.otherColorResid))
+        view.setOnClickListener {
+            OrderActivity.create(context, order)
+        }
+
+
 
     }
 
@@ -102,4 +109,5 @@ class Adapter(val context : Context, val orders : List<Order>) : RecyclerView.Ad
 
 }
 
-class ViewHolder(view : View) : RecyclerView.ViewHolder(view)
+class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
+}

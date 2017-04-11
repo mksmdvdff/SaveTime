@@ -16,4 +16,6 @@ class OrdersInteractor(val repo : OrdersRepository) {
         return repo.getOrdersByType(*types)
     }
 
+    fun getOrder(id : String) : Order? = repo.get(id)
+
 }

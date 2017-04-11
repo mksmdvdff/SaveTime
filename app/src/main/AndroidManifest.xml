@@ -18,11 +18,29 @@
         <activity
             android:name=".view.activity.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.activity.MenuOrderActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".view.activity.OrderActivity"
+            android:parentActivityName=".view.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.activity.OrderCreatingActivity"
+            android:label="@string/title_activity_order_creating"
+            android:parentActivityName=".view.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.mksm.savetime.view.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.activity.OrderFinishingActivity"
+            android:label="@string/title_activity_order_finishing"
+            android:parentActivityName=".view.activity.OrderCreatingActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.mksm.savetime.view.activity.OrderCreatingActivity" />
+        </activity>
     </application>
 
 </manifest>

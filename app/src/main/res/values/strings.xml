@@ -13,4 +13,20 @@
     <string name="orders_tab_done">Done</string>
     <string name="orders_tab_not_payed">Not payed</string>
     <string name="price_format">%.2f r.</string>
+    <string name="order_activity_title">Order № %d</string>
+    <string name="order_activity_delimeter">Order info</string>
+    <string name="title_activity_order_creating">New order</string>
+    <string name="next">Next</string>
+    <string name="title_activity_order_finishing">111</string>
+    <string name="phone_hint">Phone number</string>
+    <string name="comment_hint">Comment</string>
+    <string name="order_summary">Summary: %d r.</string>
+    <string name="create">Create order</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="switch_stop">Stop online orders</string>
+    <string name="switch_stoped">Online orders stoped</string>
+
 </resources>
