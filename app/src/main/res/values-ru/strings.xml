@@ -12,11 +12,15 @@
     <string name="order_activity_title">Заказ № %d</string>
     <string name="order_activity_delimeter">Информация о заказе</string>
     <string name="title_activity_order_creating">Новый заказ</string>
+    <string name="title_activity_order_finishing">Новый заказ</string>
     <string name="next">Продолжить</string>
     <string name="phone_hint">Номер телефона</string>
     <string name="comment_hint">Комментарий</string>
+    <string name="pass_hint">Пароль</string>
     <string name="order_summary">Итого: %d р.</string>
     <string name="create">Создать заказ</string>
     <string name="switch_stop">Приостановить прием онлайн-заказов</string>
     <string name="switch_stoped">Прием онлайн-заказов приостановлен</string>
+    <string name="logout">Выйти</string>
+    <string name="login">Войти</string>
 </resources>

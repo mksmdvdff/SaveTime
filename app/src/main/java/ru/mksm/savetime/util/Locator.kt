@@ -1,7 +1,9 @@
 package ru.mksm.savetime.util
 
+import android.content.Context
 import ru.mksm.savetime.interactors.DishesInteractor
 import ru.mksm.savetime.interactors.OrdersInteractor
+import ru.mksm.savetime.interactors.StopInteractor
 import ru.mksm.savetime.repository.MapDishesRepository
 import ru.mksm.savetime.repository.MapOrdersRepository
 
@@ -15,5 +17,9 @@ object Locator {
 
     val dishesInteractor : DishesInteractor by  lazy {
         DishesInteractor(MapDishesRepository())
+    }
+
+    val stopInteractor : StopInteractor by lazy {
+        StopInteractor(Application.context?: throw IllegalStateException())
     }
 }

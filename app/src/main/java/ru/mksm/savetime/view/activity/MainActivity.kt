@@ -84,22 +84,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         with((findViewById(R.id.stop_switch) as SwitchCompat)) {
             setOnCheckedChangeListener { compoundButton, b ->
-                if (b) {
-                    this@MainActivity.findViewById(R.id.stop_layout).setBackgroundResource(R.color.navigation_red_block)
-                    with(this@MainActivity.findViewById(R.id.stop_text) as TextView) {
-                        text = getString(R.string.switch_stoped)
-                        setTextColor(resources.getColor(R.color.white))
-                    }
-                } else {
-                    this@MainActivity.findViewById(R.id.stop_layout).setBackgroundResource(R.color.navigation_gray_block)
-                    with(this@MainActivity.findViewById(R.id.stop_text) as TextView) {
-                        text = getString(R.string.switch_stop)
-                        setTextColor(resources.getColor(R.color.order_black_text))
-                    }
-                }
+                setSwitchState(b);
+                Locator.stopInteractor.stopped = b
             }
+            isChecked = Locator.stopInteractor.stopped
+            setSwitchState(Locator.stopInteractor.stopped)
         }
 
+        setPhoneAndName()
+
+    }
+
+    private fun setSwitchState(value : Boolean) {
+        if (value) {
+            this@MainActivity.findViewById(R.id.stop_layout).setBackgroundResource(R.color.navigation_red_block)
+            with(this@MainActivity.findViewById(R.id.stop_text) as TextView) {
+                text = getString(R.string.switch_stoped)
+                setTextColor(resources.getColor(R.color.white))
+            }
+        } else {
+            this@MainActivity.findViewById(R.id.stop_layout).setBackgroundResource(R.color.navigation_gray_block)
+            with(this@MainActivity.findViewById(R.id.stop_text) as TextView) {
+                text = getString(R.string.switch_stop)
+                setTextColor(resources.getColor(R.color.order_black_text))
+            }
+        }
+    }
+
+    private fun setPhoneAndName() {
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -146,18 +159,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         val id = item.itemId
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.logout) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         val drawer = findViewById(R.id.drawer_layout) as DrawerLayout

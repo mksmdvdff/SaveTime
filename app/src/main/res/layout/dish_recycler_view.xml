@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_gravity="center"
-            android:elevation="6dp"
+            android:elevation="10dp"
             android:textSize="24dp"/>
     </FrameLayout>
     

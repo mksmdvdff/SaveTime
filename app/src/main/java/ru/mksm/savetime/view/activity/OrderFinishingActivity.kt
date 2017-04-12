@@ -38,8 +38,8 @@ class OrderFinishingActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         var container = findViewById(R.id.order_finishing_container) as LinearLayout
-        order.forEach { dish, i ->
-            addDish(container, dish, i)
+        for (order in order) {
+            addDish(container, order.key, order.value)
         }
         addDelimeter(container)
         addPhone(container)
@@ -127,7 +127,7 @@ class OrderFinishingActivity : AppCompatActivity() {
 
     private fun addDelimeter(container: ViewGroup) {
         var sum = 0;
-        order.forEach { dish, i -> sum += i * dish.prise.toInt() }
+        for (dish in order) {  sum += dish.value * dish.key.prise.toInt() }
         val inflater = layoutInflater ?: return
         val view = inflater.inflate(R.layout.text_line, container, false)
         val textview = (view.findViewById(R.id.large_text) as TextView)

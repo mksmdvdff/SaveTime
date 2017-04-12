@@ -22,11 +22,11 @@
         android:paddingTop="24dp"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/navigation_draw_header"
-        app:menu="@menu/activity_main2_drawer" >
+        app:menu="@menu/navigation_drawer_menu" >
         <LinearLayout
             android:id="@+id/stop_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:background="@color/navigation_gray_block"
             android:orientation="horizontal"
             android:layout_gravity="bottom"
@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:layout_margin="16dp"
+                android:layout_gravity="center_vertical"
                 android:textSize="14sp"/>
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/stop_switch"

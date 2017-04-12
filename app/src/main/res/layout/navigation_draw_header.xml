@@ -5,26 +5,29 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/lightBlue"
     android:fitsSystemWindows="false"
-    android:paddingTop="24dp"
-    android:gravity="bottom"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:id="@+id/nd_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
         android:text="Максим Давыдов"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nd_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:layout_marginLeft="16dp"
         android:text="89685597719"/>
 
 </LinearLayout>

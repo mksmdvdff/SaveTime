@@ -17,9 +17,10 @@
     <string name="order_activity_delimeter">Order info</string>
     <string name="title_activity_order_creating">New order</string>
     <string name="next">Next</string>
-    <string name="title_activity_order_finishing">111</string>
+    <string name="title_activity_order_finishing">New order</string>
     <string name="phone_hint">Phone number</string>
     <string name="comment_hint">Comment</string>
+    <string name="pass_hint">Password</string>
     <string name="order_summary">Summary: %d r.</string>
     <string name="create">Create order</string>
     <string name="title_activity_main2">Main2Activity</string>
@@ -28,5 +29,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="switch_stop">Stop online orders</string>
     <string name="switch_stoped">Online orders stoped</string>
+    <string name="logout">Log out</string>
+    <string name="login">Log in</string>
 
 </resources>
