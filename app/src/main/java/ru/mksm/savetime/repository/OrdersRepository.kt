@@ -9,5 +9,5 @@ import ru.mksm.savetime.view.activity.MainActivity
  * Created by mac on 02.04.17.
  */
 interface OrdersRepository : Repository<Order> {
-    fun getOrdersByType(vararg types : OrderType) : Observable<List<Order>>
+    fun getOrdersByType(vararg types : OrderType) : Observable<Collection<Order>>
 }

@@ -12,4 +12,5 @@
     <color name="icon_gray_color">#bdbdbd</color>
     <color name="navigation_gray_block">#eeeeee</color>
     <color name="navigation_red_block">#d85242</color>
+    <color name="semitransparent_black">#99000000</color>
 </resources>

@@ -21,14 +21,15 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:id="@+id/order_container"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         </LinearLayout>
 
@@ -42,42 +43,107 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_done_white_24dp" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_done"
+    <LinearLayout
+        android:id="@+id/buttons_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:padding="@dimen/fab_margin"
+        android:orientation="vertical"
         android:visibility="gone"
-        android:src="@drawable/ic_done_all_white_24dp"
-        app:layout_anchor="@id/fab"
-        app:layout_anchorGravity="top" />
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="88dp">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_ready"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:padding="@dimen/fab_margin"
-        android:src="@drawable/ic_done_white_24dp"
-        app:background="@android:color/white"
-        app:layout_anchor="@id/fab_done"
-        android:visibility="gone"
-        app:layout_anchorGravity="top" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:layout_gravity="right">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_cook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:visibility="gone"
-        android:layout_margin="@dimen/fab_margin"
-        android:padding="@dimen/fab_margin"
-        android:src="@drawable/ic_attach_money_white_24dp"
-        app:background="@android:color/white"
-        app:layout_anchor="@id/fab_ready"
-        app:layout_anchorGravity="top" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/semitransparent_black"
+                android:padding="4dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/cook_action"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_cook"
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:src="@drawable/ic_attach_money_white_24dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:layout_gravity="right">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/semitransparent_black"
+                android:padding="4dp"
+                android:text="@string/ready_action"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_ready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_done_white_24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:layout_gravity="right">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/semitransparent_black"
+                android:padding="4dp"
+                android:text="@string/done_action"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_done"
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:src="@drawable/ic_done_all_white_24dp"
+
+                />
+
+
+        </LinearLayout>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

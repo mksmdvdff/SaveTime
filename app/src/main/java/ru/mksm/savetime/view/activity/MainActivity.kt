@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val navigationView = findViewById(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
-
+        setPhoneAndName(navigationView)
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener {
             Locator.dishesInteractor.currOrder.clear()
@@ -90,9 +90,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             isChecked = Locator.stopInteractor.stopped
             setSwitchState(Locator.stopInteractor.stopped)
         }
-
-        setPhoneAndName()
-
     }
 
     private fun setSwitchState(value : Boolean) {
@@ -111,8 +108,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun setPhoneAndName() {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun setPhoneAndName(navigationView: NavigationView) {
+        var view = navigationView.getHeaderView(0)
+        (view.findViewById(R.id.nd_name) as TextView).text = Locator.registrationInteractor.name
+        (view.findViewById(R.id.nd_phone) as TextView).text = Locator.registrationInteractor.number
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -160,7 +159,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val id = item.itemId
 
         if (id == R.id.logout) {
-            // Handle the camera action
+            Locator.registrationInteractor.name = ""
+            Locator.registrationInteractor.number = ""
+            RegistrationActivity.create(this)
         }
 
         val drawer = findViewById(R.id.drawer_layout) as DrawerLayout

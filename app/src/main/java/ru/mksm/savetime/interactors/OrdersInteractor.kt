@@ -12,10 +12,12 @@ import ru.mksm.savetime.repository.Repository
 
 class OrdersInteractor(val repo : OrdersRepository) {
 
-    fun observeOrders(vararg types : OrderType) : Observable<List<Order>> {
+    fun observeOrders(vararg types : OrderType) : Observable<Collection<Order>> {
         return repo.getOrdersByType(*types)
     }
 
     fun getOrder(id : String) : Order? = repo.get(id)
+
+    fun changeOrder(order : Order) = repo.addOrUpdate(order)
 
 }

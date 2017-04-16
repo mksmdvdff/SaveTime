@@ -27,10 +27,14 @@ data class Order (val id : Int,
     override fun getId() = id.toString();
 }
 
-enum class OrderType(val priority : Int, val headerResId : Int, val idColorResId : Int, val otherColorResid : Int) {
-    NotPayed(0, R.color.white, R.color.order_black_text, R.color.order_gray_text),
-    Payed(1, R.color.lightBlue, R.color.white, R.color.white),
-    Cooking(3, R.color.white, R.color.order_black_text, R.color.order_gray_text),
-    Cooked(2, R.color.green, R.color.white, R.color.white),
-    Done(0, R.color.white, R.color.order_black_text, R.color.order_gray_text)
+enum class OrderType(val priority : Int, val headerResId : Int,
+                     val idColorResId : Int,
+                     val otherColorResid : Int,
+                     val nameStringRes : Int?) {
+    NotPayed(0, R.color.white, R.color.order_black_text, R.color.order_gray_text, null),
+    Payed(1, R.color.lightBlue, R.color.white, R.color.white, R.string.newOrder),
+    Cooking(3, R.color.green, R.color.white, R.color.white, R.string.cooking),
+    Cooked(2, R.color.white, R.color.order_black_text, R.color.order_gray_text, R.string.cooked_short),
+    Done(0, R.color.white, R.color.order_black_text, R.color.order_gray_text, null),
+    Old(0, R.color.white, R.color.order_black_text, R.color.order_gray_text, null)
 }

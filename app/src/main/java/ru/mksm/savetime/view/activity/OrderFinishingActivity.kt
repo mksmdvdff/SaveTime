@@ -39,7 +39,9 @@ class OrderFinishingActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         var container = findViewById(R.id.order_finishing_container) as LinearLayout
         for (order in order) {
-            addDish(container, order.key, order.value)
+            if (order.value > 0) {
+                addDish(container, order.key, order.value)
+            }
         }
         addDelimeter(container)
         addPhone(container)

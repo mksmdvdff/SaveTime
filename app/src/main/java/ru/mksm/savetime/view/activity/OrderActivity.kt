@@ -8,7 +8,9 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.DrawableContainer
 import android.os.Bundle
+import android.support.design.widget.BaseTransientBottomBar
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -69,14 +71,40 @@ class OrderActivity : AppCompatActivity() {
             switchFabState(view as FloatingActionButton, hashMap.keys)
         }
         checkEntriesColors(hashMap.entries)
-        setOnClickListeners(hashMap.entries)
+        setOnClickListeners(container, hashMap.entries)
     }
 
-    private fun  setOnClickListeners(entries: MutableSet<MutableMap.MutableEntry<FloatingActionButton, OrderType>>) {
+    private fun setOnClickListeners(view : View, entries: MutableSet<MutableMap.MutableEntry<FloatingActionButton, OrderType>>) {
         entries.forEach {
             var state = it.value
             it.key.setOnClickListener {
-                order = Order(order!!.id, state, order!!.time, order!!.price, order!!.phone, order!!.comment, order!!.desc)
+                if (state == OrderType.Cooked || (order!!.type != OrderType.Cooked && state == OrderType.Done)) {
+                    val snackbar = Snackbar.make(view, R.string.are_you_sure, Snackbar.LENGTH_LONG)
+                    snackbar.setAction(R.string.cancel_action) {
+
+                    }
+                    snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            super.onDismissed(transientBottomBar, event)
+                            if (event !=  BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_ACTION) {
+                                Locator.ordersInteractor.changeOrder(Order(order!!.id,
+                                        state,
+                                        order!!.time,
+                                        order!!.price,
+                                        order!!.phone,
+                                        order!!.comment,
+                                        order!!.desc))
+                                finish()
+                            }
+                        }
+
+                    })
+                    snackbar.show()
+                } else {
+                    order = Order(order!!.id, state, order!!.time, order!!.price, order!!.phone, order!!.comment, order!!.desc)
+                    Locator.ordersInteractor.changeOrder(order!!)
+                    finish()
+                }
                 checkEntriesColors(entries)
                 switchFabState(mainFab!!, entries.map { it.key })
             }
@@ -96,19 +124,15 @@ class OrderActivity : AppCompatActivity() {
     }
 
     private fun switchFabState(mainFab : FloatingActionButton, fabs : Iterable<FloatingActionButton>) {
-        var wasVisible = false
-        fabs.forEach {
-            if (it.visibility == GONE) {
-                it.visibility = VISIBLE
-            } else {
-                wasVisible = true
-                it.visibility = GONE
-            }
-        }
+        var linearLayout = findViewById(R.id.buttons_layout)
+        var wasVisible = linearLayout.visibility == VISIBLE
+
         if (wasVisible) {
+            linearLayout.visibility = GONE
             mainFab.setImageDrawable(resources.getDrawable(R.drawable.ic_done_white_24dp))
             mainFab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.lightBlue))
         } else {
+            linearLayout.visibility = VISIBLE
             mainFab.setImageDrawable(resources.getDrawable(R.drawable.ic_close_white_24dp))
             mainFab.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.order_black_text))
         }

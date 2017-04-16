@@ -10,13 +10,22 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import ru.mksm.savetime.R
+import ru.mksm.savetime.util.ActivityCompanion
+import ru.mksm.savetime.util.Locator
 
 class RegistrationActivity : AppCompatActivity() {
 
+    companion object : ActivityCompanion(RegistrationActivity::class.java)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (Locator.registrationInteractor.name.isNotEmpty()) {
+            MainActivity.create(this)
+        }
         setContentView(R.layout.activity_registration);
         findViewById(R.id.login_next).setOnClickListener {
+            Locator.registrationInteractor.name = "Александр Нечаев"
+            Locator.registrationInteractor.number = (findViewById(R.id.login_phone_et) as EditText).text.toString()
             MainActivity.create(this)
         }
         with(findViewById(R.id.login_phone_et) as EditText) {

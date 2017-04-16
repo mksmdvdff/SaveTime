@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/lightBlue"
-    android:fitsSystemWindows="false"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -18,8 +17,7 @@
         android:textStyle="bold"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"
-        android:text="Максим Давыдов"/>
+        android:layout_marginBottom="4dp"/>
 
     <TextView
         android:id="@+id/nd_phone"
@@ -27,7 +25,6 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:layout_marginLeft="16dp"
-        android:text="89685597719"/>
+        android:layout_marginLeft="16dp"/>
 
 </LinearLayout>

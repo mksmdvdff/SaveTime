@@ -31,5 +31,16 @@
     <string name="switch_stoped">Online orders stoped</string>
     <string name="logout">Log out</string>
     <string name="login">Log in</string>
+    <string name="done">Delivered</string>
+    <string name="cooked">Cooked</string>
+    <string name="gone_to_cook">Gone to cook</string>
+    <string name="newOrder">Новый</string>
+    <string name="cooking">Готовится</string>
+    <string name="cooked_short">Готов</string>
+    <string name="are_you_sure">Заказ отмечен готовым</string>
+    <string name="cancel_action">Отменить</string>
+    <string name="cook_action">В готовку</string>
+    <string name="ready_action">Приготовлено</string>
+    <string name="done_action">Передано клиенту</string>
 
 </resources>

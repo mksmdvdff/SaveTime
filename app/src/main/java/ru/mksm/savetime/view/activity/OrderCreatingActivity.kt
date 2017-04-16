@@ -96,7 +96,7 @@ class DishesAdapter(val context: Context, val dishes: List<Dish>, val nextButton
         if (order.values.filter { it > 0 }.isNotEmpty()) {
             nextButton.isEnabled = true
             nextButton.setBackgroundResource(R.color.lightBlue)
-            nextButton.setTextColor(R.color.white)
+            nextButton.setTextColor(context.resources.getColor(R.color.white))
         } else {
             nextButton.isEnabled = false
             nextButton.setBackgroundResource(R.color.icon_gray_color)
