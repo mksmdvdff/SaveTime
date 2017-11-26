@@ -2,10 +2,8 @@ package ru.mksm.savetime.view.activity
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -13,19 +11,20 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import org.w3c.dom.Text
-
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import ru.mksm.savetime.R
 import ru.mksm.savetime.model.Dish
 import ru.mksm.savetime.util.ActivityCompanion
 import ru.mksm.savetime.util.Locator
-import java.util.*
-import kotlin.collections.HashMap
 
 class OrderCreatingActivity : AppCompatActivity() {
 
     companion object : ActivityCompanion(OrderCreatingActivity::class.java)
+    var internetDisposable : Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +36,33 @@ class OrderCreatingActivity : AppCompatActivity() {
         val nextButton = findViewById(R.id.creating_next) as Button
         recyclerView.layoutManager = LinearLayoutManager(this)
         Locator.dishesInteractor.getAllDishes().subscribe {
-            recyclerView.adapter = DishesAdapter(this, ArrayList(it), nextButton)
+            if (it!=null) {
+                recyclerView.adapter = DishesAdapter(this, it.toList(), nextButton)
+            } else {
+                finish()
+            }
         }
+
+        var offline = toolbar.findViewById(R.id.offline)
+        internetDisposable = Locator.internetInteractor.observeInternet()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if (!it) {
+                        offline.visibility = View.VISIBLE
+                    } else {
+                        offline.visibility = View.GONE
+                    }
+                }
 
         nextButton.setOnClickListener {
             OrderFinishingActivity.create(this)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (internetDisposable != null) {
+            internetDisposable!!.dispose()
         }
     }
 }
@@ -74,7 +95,7 @@ class DishesAdapter(val context: Context, val dishes: List<Dish>, val nextButton
         val countView = view.findViewById(R.id.dish_count) as TextView
         val dish = dishes[position]
         title.text = dish.name
-        price.text = context.getString(R.string.price_format, dish.prise)
+        price.text = context.getString(R.string.price_format, dish.price)
         checkFabState(position, button, countView, minusButton)
         button.setOnClickListener {
             val dish = dishes[position]

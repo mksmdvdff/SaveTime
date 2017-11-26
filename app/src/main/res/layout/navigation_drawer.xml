@@ -19,33 +19,71 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_draw_header"
-        app:menu="@menu/navigation_drawer_menu" >
+        app:menu="@menu/navigation_drawer_menu">
+
         <LinearLayout
-            android:id="@+id/stop_layout"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/navigation_gray_block"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_margin="16dp"
-            android:weightSum="1">
-            <TextView
-                android:id="@+id/stop_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:layout_margin="16dp"
-                android:layout_gravity="center_vertical"
-                android:textSize="14sp"/>
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/stop_switch"
-                android:layout_width="0dp"
-                android:layout_margin="8dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.3"/>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/service_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/navigation_gray_block"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Работа в режиме кассы"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.7"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/service_switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0.3"
+                    android:theme="@style/ServiceSwitch"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:id="@+id/stop_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/navigation_gray_block"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/stop_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="16dp"
+                    android:layout_weight="0.7"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/stop_switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0.3"
+                    android:theme="@style/StopSwitch" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.design.widget.NavigationView>
-    
+
 
 </android.support.v4.widget.DrawerLayout>

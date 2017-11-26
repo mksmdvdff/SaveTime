@@ -13,8 +13,9 @@
     <string name="orders_tab_done">Done</string>
     <string name="orders_tab_not_payed">Not payed</string>
     <string name="price_format">%.2f r.</string>
-    <string name="order_activity_title">Order № %d</string>
-    <string name="order_activity_delimeter">Order info</string>
+    <string name="order_activity_title">№ %d</string>
+    <string name="order_activity_delimeter"> Additional info</string>
+    <string name="order_activity_dishes_delimeter">Dishes</string>
     <string name="title_activity_order_creating">New order</string>
     <string name="next">Next</string>
     <string name="title_activity_order_finishing">New order</string>
@@ -42,5 +43,9 @@
     <string name="cook_action">В готовку</string>
     <string name="ready_action">Приготовлено</string>
     <string name="done_action">Передано клиенту</string>
+    <plurals name="guests">
+        <item quantity="one">%d guest</item>
+        <item quantity="other">%d guests</item>
+    </plurals>
 
 </resources>

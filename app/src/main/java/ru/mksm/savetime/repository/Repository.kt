@@ -6,7 +6,7 @@ package ru.mksm.savetime.repository
 interface Repository<T : Entity> {
     fun get (id : String) : T?
     fun getAll() : Collection<T>
-    fun addOrUpdate (entity: T) : String
+    fun addAll(entities : Collection<T>)
     fun remove (id : String) : T?
     fun clear()
 

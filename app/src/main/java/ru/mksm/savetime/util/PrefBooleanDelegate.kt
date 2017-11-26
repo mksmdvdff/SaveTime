@@ -1,7 +1,6 @@
 package ru.mksm.savetime.util
 
 import android.content.SharedPreferences
-import kotlin.properties.Delegates
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 

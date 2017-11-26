@@ -61,7 +61,8 @@
             android:id="@+id/login_phone_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp">
             <EditText
                 android:id="@+id/login_phone_et"
                 android:layout_width="match_parent"
@@ -73,30 +74,12 @@
                 android:textColorHint="@color/lightBlue"
                 android:textColor="@color/order_black_text"
                 android:textSize="18sp"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/login_pass_til"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp">
-            <EditText
-                android:id="@+id/login_pass_et"
-                android:layout_width="match_parent"
-                android:inputType="textPassword"
-                android:layout_height="wrap_content"
-                android:hint="@string/pass_hint"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:textColorHint="@color/lightBlue"
-                android:textColor="@color/order_black_text"
-                android:textSize="18sp"/>
 
             <Button
                 android:id="@+id/login_next"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="@string/login"
+                android:text="@string/next"
                 android:layout_margin="16dp"
                 android:layout_marginTop="32dp"
                 android:enabled="false"

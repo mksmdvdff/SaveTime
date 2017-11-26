@@ -7,15 +7,15 @@
 
     <FrameLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="0.2">
         <ImageView
             android:id="@+id/icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginRight="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_gravity="right"/>
+            android:layout_marginTop="12dp"
+            android:layout_gravity="right|center_horizontal"/>
     </FrameLayout>
 
     <LinearLayout
@@ -24,14 +24,15 @@
         android:layout_weight="0.8"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/icon_line_text"
+            android:id="@+id/line_text"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:visibility="gone"
             android:textSize="18sp"
             android:textColor="@color/order_black_text"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="center_vertical"
             />
         <android.support.design.widget.TextInputLayout
             android:id="@+id/icon_line_phone_til"
@@ -39,7 +40,8 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp">
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="4dp">
             <EditText
                 android:id="@+id/icon_line_phone_et"
                 android:layout_width="match_parent"
@@ -57,7 +59,8 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp">
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="4dp">
             <EditText
                 android:id="@+id/icon_line_comment_et"
                 android:layout_width="match_parent"

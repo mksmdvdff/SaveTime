@@ -9,14 +9,15 @@
     <string name="orders_tab_done">Выданные</string>
     <string name="orders_tab_not_payed">Неоплаченные</string>
     <string name="price_format">%.2f р.</string>
-    <string name="order_activity_title">Заказ № %d</string>
-    <string name="order_activity_delimeter">Информация о заказе</string>
+    <string name="order_activity_title">№ %d</string>
+    <string name="order_activity_delimeter">Доп. информация</string>
+    <string name="order_activity_dishes_delimeter">Блюда</string>
     <string name="title_activity_order_creating">Новый заказ</string>
     <string name="title_activity_order_finishing">Новый заказ</string>
     <string name="next">Продолжить</string>
     <string name="phone_hint">Номер телефона</string>
     <string name="comment_hint">Комментарий</string>
-    <string name="pass_hint">Пароль</string>
+    <string name="pass_hint">Код из смс</string>
     <string name="order_summary">Итого: %d р.</string>
     <string name="create">Создать заказ</string>
     <string name="switch_stop">Приостановить прием онлайн-заказов</string>
@@ -34,4 +35,8 @@
     <string name="cook_action">В готовку</string>
     <string name="ready_action">Приготовлено</string>
     <string name="done_action">Передано клиенту</string>
+    <plurals name="guests">
+        <item quantity="one">%d гость</item>
+        <item quantity="other">%d гостей</item>
+    </plurals>
 </resources>

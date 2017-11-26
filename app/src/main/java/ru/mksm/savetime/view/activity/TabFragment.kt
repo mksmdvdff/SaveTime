@@ -6,33 +6,22 @@ import android.os.Bundle
 import android.support.design.widget.BaseTransientBottomBar
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.support.v7.util.SortedList
-import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.RelativeLayout
+import android.widget.TextView
+import android.widget.Toast
 import com.daimajia.swipe.SwipeLayout
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Action
-import io.reactivex.schedulers.Schedulers
-import org.w3c.dom.Text
 import ru.mksm.savetime.R
-import ru.mksm.savetime.interactors.OrdersInteractor
+import ru.mksm.savetime.model.Dish
 import ru.mksm.savetime.model.Order
-import ru.mksm.savetime.model.OrderType
-import ru.mksm.savetime.util.Application
+import ru.mksm.savetime.model.OrderStage
 import ru.mksm.savetime.util.Locator
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.Comparator
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 /**
  * Created by mac on 02.04.17.
@@ -53,9 +42,11 @@ class PlaceholderFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         adapter = Adapter(context, emptyList())
+        adapter!!.setHasStableIds(true)
         recyclerView!!.adapter = adapter
         recyclerView!!.layoutManager = LinearLayoutManager(activity);
-        val orderTypes = MainActivity.TabType.values()[arguments.getInt(TAB_ORDER_TYPE)].orderTypes
+        val orderTypes = MainActivity.TabType.values()[arguments.getInt(TAB_ORDER_TYPE)].orderStages
+        if (disposable != null) disposable!!.dispose()
         disposable = Locator.ordersInteractor.observeOrders(
                 *orderTypes).observeOn(AndroidSchedulers.mainThread()).subscribe {
             adapter!!.onDataChanged(it)
@@ -64,7 +55,7 @@ class PlaceholderFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        disposable ?: disposable!!.dispose()
+        if (disposable != null) disposable!!.dispose()
     }
 
     companion object {
@@ -91,43 +82,16 @@ class PlaceholderFragment : Fragment() {
 
 class Adapter(val context: Context, val orders: List<Order>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val list = SortedList(Order::class.java, object : SortedList.Callback<Order>() {
-        override fun onChanged(position: Int, count: Int) {
-            this@Adapter.notifyItemRangeChanged(position, count)
-        }
-
-        override fun onRemoved(position: Int, count: Int) {
-            this@Adapter.notifyItemRangeRemoved(position, count)
-        }
-
-        override fun onMoved(fromPosition: Int, toPosition: Int) {
-            this@Adapter.notifyItemMoved(fromPosition, toPosition)
-        }
-
-        override fun areContentsTheSame(oldItem: Order?, newItem: Order?): Boolean {
-            return oldItem!! == newItem
-        }
-
-        override fun areItemsTheSame(item1: Order?, item2: Order?): Boolean {
-            return item1!!.getId() == item2!!.getId()
-        }
-
-        override fun compare(o1: Order?, o2: Order?): Int {
-            if (o1!!.type != o2!!.type) {
-                return o1.type.ordinal - o2.type.ordinal
-            } else {
-                return o1.time.compareTo(o2.time)
-            }
-        }
-
-        override fun onInserted(position: Int, count: Int) {
-            this@Adapter.notifyItemRangeInserted(position, count)
-        }
-
-    })
+    var list: ArrayList<Order> = ArrayList<Order>()
 
     init {
-        list.addAll(orders)
+        onDataChanged(orders)
+    }
+
+    override fun getItemId(position: Int): Long {
+
+        val order = list[position]
+        return order.id.toLong()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -136,7 +100,7 @@ class Adapter(val context: Context, val orders: List<Order>) : RecyclerView.Adap
     }
 
 
-    override fun getItemCount() = list.size()
+    override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val view = holder!!.itemView
@@ -149,15 +113,14 @@ class Adapter(val context: Context, val orders: List<Order>) : RecyclerView.Adap
         val priceText = view.findViewById(R.id.order_price) as TextView
         val descText = view.findViewById(R.id.order_description) as TextView
 
-        idText.text = order.getId()
-        val format = SimpleDateFormat("HH:mm")
-        timeText.text = format.format(order.time.time)
-        priceText.text = view.context.getString(R.string.price_format, order.price)
+        idText.text = if (order.id > 0) order.getId() else ""
+        timeText.text = if (order.stage.priority == 0) order.date.substring(0, 5) + " " + order.time else order.time
+        priceText.text = view.context.getString(R.string.price_format, order.getSummaryPrice())
         descText.text = order.desc.map { pairToKey(it) }.joinToString(separator = ", ")
-        header.setBackgroundResource(order.type.headerResId)
-        idText.setTextColor(context.resources.getColor(order.type.idColorResId))
-        timeText.setTextColor(context.resources.getColor(order.type.otherColorResid))
-        priceText.setTextColor(context.resources.getColor(order.type.idColorResId))
+        header.setBackgroundResource(order.stage.headerResId)
+        idText.setTextColor(context.resources.getColor(order.stage.idColorResId))
+        timeText.setTextColor(context.resources.getColor(order.stage.otherColorResid))
+        priceText.setTextColor(context.resources.getColor(order.stage.idColorResId))
         view.setOnClickListener {
             OrderActivity.create(context, order)
         }
@@ -165,10 +128,10 @@ class Adapter(val context: Context, val orders: List<Order>) : RecyclerView.Adap
 
     }
 
-    private fun setupSwipeLayout(view: View, order: Order, position : Int) {
+    private fun setupSwipeLayout(view: View, order: Order, position: Int) {
         val swipeView = view.findViewById(R.id.swipe) as SwipeLayout
         swipeView.showMode = SwipeLayout.ShowMode.LayDown
-        if (order.type.priority == 0) {
+        if (order.stage.priority == 0) {
             swipeView.isSwipeEnabled = false
         }
         swipeView.addSwipeListener(object : SwipeLayout.SwipeListener {
@@ -200,8 +163,9 @@ class Adapter(val context: Context, val orders: List<Order>) : RecyclerView.Adap
         })
         view.findViewById(R.id.button_swipe).setOnClickListener {
             list.remove(order)
-            val nextType = OrderType.values()[order.type.ordinal + 1]
-            if (nextType == OrderType.Cooked) {
+            notifyDataSetChanged()
+            val nextType = OrderStage.values()[order.stage.ordinal + 1]
+            if (nextType == OrderStage.Cooked) {
                 val snackbar = Snackbar.make(view, R.string.are_you_sure, Snackbar.LENGTH_LONG)
                 snackbar.setAction(R.string.cancel_action) {
 
@@ -209,45 +173,68 @@ class Adapter(val context: Context, val orders: List<Order>) : RecyclerView.Adap
                 snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                         super.onDismissed(transientBottomBar, event)
-                        if (event !=  BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_ACTION) {
+                        if (event != BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_ACTION) {
                             list.remove(order)
+                            notifyDataSetChanged()
                             Locator.ordersInteractor.changeOrder(Order(order.id,
                                     nextType,
                                     order.time,
-                                    order.price,
+                                    order.date,
                                     order.phone,
                                     order.comment,
-                                    order.desc))
+                                    order.orderTypeId,
+                                    order.promocodes,
+                                    order.guestsCount,
+                                    order.desc), true)
                         } else {
-                            Locator.ordersInteractor.changeOrder(order)
+                            Locator.ordersInteractor.changeOrder(order, false)
                         }
                     }
 
                 })
                 snackbar.show()
+                if (!Locator.internetInteractor.isInternetConnected()) {
+                    Toast.makeText(context, "СМС о готовности будет доставлена после появления сети"
+                            , Toast.LENGTH_LONG).show()
+                }
             } else {
                 Locator.ordersInteractor.changeOrder(Order(order.id,
                         nextType,
                         order.time,
-                        order.price,
+                        order.date,
                         order.phone,
                         order.comment,
-                        order.desc))
+                        order.orderTypeId,
+                        order.promocodes,
+                        order.guestsCount,
+                        order.desc), true)
             }
             swipeView.close(true)
         }
     }
 
-    private fun pairToKey(pair: Map.Entry<String, Int>): String {
+    private fun pairToKey(pair: Map.Entry<Dish, Int>): String {
         if (pair.value == 1) {
-            return pair.key
+            return pair.key.name
         } else {
-            return pair.key + " x" + pair.value
+            return pair.key.name + " x" + pair.value
         }
     }
 
-    fun onDataChanged(newOrders: Collection<Order>) {
-        list.addAll(newOrders)
+    fun onDataChanged(newOrders: Iterable<Order>) {
+        list = ArrayList(newOrders.sortedWith(Comparator<Order> { o1: Order, o2: Order ->
+            if (o1.stage != o2.stage) {
+                o1.stage.ordinal - o2.stage.ordinal
+            } else {
+                if (o1.stage.priority != 0) {
+                    o1.id.compareTo(o2.id)
+                } else {
+                    o2.id.compareTo(o1.id)
+                }
+
+            }
+        }))
+        notifyDataSetChanged()
     }
 
 }

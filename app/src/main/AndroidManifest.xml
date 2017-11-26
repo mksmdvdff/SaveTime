@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="ru.mksm.savetime"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.mksm.savetime">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
 
     <application
-        android:allowBackup="true"
         android:name=".util.Application"
-        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.RegistrationActivity"
+        <activity
+            android:name=".view.activity.RegistrationActivity"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".view.activity.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activity.OrderActivity"
             android:parentActivityName=".view.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activity.OrderCreatingActivity"
             android:label="@string/title_activity_order_creating"
@@ -31,7 +38,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.mksm.savetime.view.activity.MainActivity"/>
+                android:value="ru.mksm.savetime.view.activity.MainActivity" />
         </activity>
         <activity
             android:name=".view.activity.OrderFinishingActivity"
@@ -40,8 +47,19 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.mksm.savetime.view.activity.OrderCreatingActivity"/>
+                android:value="ru.mksm.savetime.view.activity.OrderCreatingActivity" />
         </activity>
+        <activity
+            android:name=".view.activity.PasswordActivity"
+            android:parentActivityName=".view.activity.RegistrationActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.mksm.savetime.view.activity.RegistrationActivity" />
+        </activity>
+        <activity android:name=".view.activity.LoadingActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <service android:name=".util.UpdateService"/>
     </application>
 
 </manifest>

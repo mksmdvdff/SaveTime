@@ -1,7 +1,6 @@
 package ru.mksm.savetime.interactors
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import ru.mksm.savetime.util.PrefBooleanDelegate
 
@@ -11,4 +10,6 @@ import ru.mksm.savetime.util.PrefBooleanDelegate
 
 class StopInteractor (val context : Context) {
     var stopped by PrefBooleanDelegate(PreferenceManager.getDefaultSharedPreferences(context), "is_stoped", false)
+
+
 }
